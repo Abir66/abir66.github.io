@@ -1,0 +1,50 @@
+---
+
+---
+
+<div id="blob" class="fixed -z-20"></div>
+<div id="blur" class="fixed inset-0 h-screen w-full -z-20"></div>
+
+<style>
+    #blob {
+        /* background-color: white; */
+        height: 20vmax;
+        aspect-ratio: 1;
+        left: 50%;
+        top: 50%;
+        translate: -50% -50%;
+        border-radius: 50%;
+        background: linear-gradient(to right, aquamarine, mediumpurple);
+        /* background: linear-gradient(to right, rgb(201, 127, 201), rgb(127, 127, 224)); */
+        animation: rotate 20s infinite;
+        opacity: 0.8;
+    }
+  
+    #blur {
+        backdrop-filter: blur(12vmax);
+    }
+</style>
+
+
+<script>
+    const blob = document.getElementById("blob");
+
+    window.onpointermove = event => { 
+        const { clientX, clientY } = event;
+
+        blob.animate({
+            left: `${clientX}px`,
+            top: `${clientY}px`
+        }, { duration: 3000, fill: "forwards" });
+    }
+
+    // onclick?
+    window.onpointerdown = event => { 
+        const { clientX, clientY } = event;
+
+        blob.animate({
+            left: `${clientX}px`,
+            top: `${clientY}px`
+        }, { duration: 1000, fill: "forwards" });
+    }
+</script>
