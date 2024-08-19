@@ -1,0 +1,12 @@
+---
+import SectionTitle from '$components/SectionTitle.astro'
+import  * as AboutMe from '$content/about/about.md';
+---
+<section id="about_me" class="min-h-screen flex flex-col items-center justify-center my-20 py-20">
+    <div class="text-justify py-2 mx-auto">
+        <SectionTitle section_title="A little bit about me" />
+        <div class="prose dark:prose-invert ">
+            <AboutMe.Content />
+        </div>
+    </div>
+</section>

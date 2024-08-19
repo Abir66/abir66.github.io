@@ -1,167 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Main from "../components/Main.astro"
-import { getCollection, getEntry } from 'astro:content';
-import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components'
 
-import myImage from '../images/abir.jpg';
-import Title from '../components/NameTitle.astro';
-import SectionTitle from '../components/SectionTitle.astro'
-import * as  Intro from '../content/intro.md';
-import  * as AboutMe from '../content/about.md';
+import Intro from '$components/sections/intro.astro'
+import About from '$components/sections/about.astro'
+import Education from '$components/sections/education.astro'
+import Experience from '$lib/components/sections/experience.astro';
+import Skills from '$lib/components/sections/skills.astro';
+import Projects from '$lib/components/sections/projects.astro';
 
 
-const experiences = await Astro.glob('../content/experience/*.md');
-experiences.sort((a,b) => {return a.file.localeCompare(b.file)})
+import siteData from '$data/config.json'
 
-const educations = await Astro.glob('../content/education/*.md');
-educations.sort((a,b) => {return a.file.localeCompare(b.file)})
-
-const name = Intro.frontmatter.name;
 ---
 
-<Layout title={name}>
+<Layout title={siteData.title}>
 		<Main>
-			<section class="min-h-[calc(100vh-80px)] flex items-center justify-center py-10">
-				<div class="flex flex-col xl:flex-row-reverse gap-10">
-					<div class="relative w-48  xl:w-64 aspect-square my-auto">
-						<div class="absolute left-4 top-4 w-full aspect-square border-2 border-primary"></div>
-						<Image 
-						src={myImage} 
-						alt={name} 
-						class="absolute w-full object-cover aspect-square"
-						/>
-					</div>
-					<div class="prose lg:prose-xl dark:prose-invert">
-						<p>Hi 👋, my name is</p>
-						<!-- <Title name = {name.toUpperCase()} /> -->
-						<h1 class="text-5xl lg:6xl font-bold">{name.toUpperCase()}</h1>
-						<Intro.Content />
-						<div class="flex gap-4 lg:gap-8 pt-5">
-							<a target="_blank" href={Intro.frontmatter.github}><Icon name="lucide:github" class="size-8  transition opacity-80 hover:opacity-100 hover:scale-110" /></a>
-							<a target="_blank" href={"mailto: " + Intro.frontmatter.mail}><Icon name="lucide:mail" class="size-8 transition opacity-80 hover:opacity-100 hover:scale-110" /></a>
-							<a target="_blank" href={Intro.frontmatter.linkedin}><Icon name="lucide:linkedin" class="size-8  transition opacity-80 hover:opacity-100 hover:scale-110" /></a>
-							<a target="_blank" href={Intro.frontmatter.twitter}><Icon name="devicon:twitter" class="size-7 dark:invert  transition opacity-80 hover:opacity-100 hover:scale-110" /></a>
-						</div>
-					</div>
-				</div>
-			</section>
-	  
-			<section id="about_me" class="min-h-screen flex items-center justify-center py-10">
-				<div class="text-justify py-2 mx-auto">
-					<SectionTitle section_title="A little bit about me" />
-					<div class="prose dark:prose-invert">
-						<AboutMe.Content />
-					</div>
-				</div>
-			</section>
-	  
-		  
-		  <section id ="education" class="min-h-screen py-20 flex flex-col items-center justify-center max-w-prose">
-				<div class="text-justify py-2 mx-auto">
-					<SectionTitle section_title="Education" />
-
-					<div class="flex flex-col">
-						{educations.map((education, index) => (
-						  
-							<div class="prose dark:prose-invert">
-							  <h2 class="text-left font-medium">{education.frontmatter.institution}</h2>
-							  <div class="border-b-2">
-								<p class="font-bold italic">{education.frontmatter.degree}</p>
-								<p class="italic">{education.frontmatter.time_period} | {education.frontmatter.grade}</p>
-							  </div>
-							  <education.Content />
-							  {index < educations.length - 1 && <hr class="my-10 w-full border-t border-gray-400 dark:border-gray-600" />}
-							</div>
-							
-						))}
-					  </div>
-
-					
-				</div>
-		  </section>
-
-
-		  	<section id ="experience" class="min-h-screen py-20 flex flex-col items-center justify-center max-w-prose">
-				<div class="text-justify py-2 mx-auto">
-					<SectionTitle section_title="Experience" />
-
-					<div class="flex flex-col">
-						{experiences.map((experience, index) => (
-						
-							<div class="prose dark:prose-invert">
-							<h2>
-								<a target="_blank" class="underline underline-offset-4" href={experience.frontmatter.company_url}>
-								{experience.frontmatter.company_name}
-								</a>
-							</h2>
-							<div class="flex flex-col sm:flex-row sm:gap-8  justify-between">
-								<p>{experience.frontmatter.role}</p>
-								<p class="mt-0">{experience.frontmatter.time_period}</p>
-							</div>
-							<experience.Content />
-							<div class="flex gap-4">
-								{experience.frontmatter.tags.map(tag => (
-								<div class="text-sm rounded-full bg-muted py-1 px-4">
-									<span class="text-xs sm:text-sm">{tag}</span>
-								</div>
-								))}
-							</div>
-							{index < experiences.length - 1 && <hr class="my-20 w-full border-t border-gray-400 dark:border-gray-600" />}
-							</div>
-							
-						))}
-					</div>
-
-					
-				</div>
-	  		</section>
-
-		  	<section id ="skills" class="min-h-screen flex flex-col items-center justify-center max-w-prose">
-				<div class="text-center py-2 mx-auto">
-					<SectionTitle section_title="I am skilled in" />
-
-					<p class="py-4">Language</p>
-					
-					<div class="flex gap-4 mb-8 justify-center">
-						<Icon name="devicon-plain:cplusplus" class="size-16  transition  hover:scale-125" />
-						<Icon name="devicon-plain:python" class="size-16  transition  hover:scale-125" />
-						<Icon name="devicon-plain:java" class="size-16  transition  hover:scale-125" />
-						<Icon name="devicon-plain:javascript" class="size-16  transition  hover:scale-125" />
-					</div>
-
-					<p class="py-4">Development</p>
-
-					<div class="flex gap-4 mb-8 justify-center">
-						<Icon name="devicon-plain:nodejs-wordmark" class="size-16  transition hover:scale-125" />
-						<Icon name="devicon-plain:svelte" class="size-16  transition hover:scale-125" />
-						<Icon name="devicon-plain:postgresql" class="size-16  transition hover:scale-125" />
-						<Icon name="devicon-plain:godot" class="size-16  transition hover:scale-125" />
-					</div>
-
-					<p class="py-4">Tool</p>
-
-					<div class="flex gap-4 flex-row justify-center">
-						<Icon name="devicon-plain:bash" class="size-16  transition hover:scale-125" />
-						<Icon name="devicon-plain:git" class="size-16  transition hover:scale-125" />
-						<Icon name="devicon-plain:docker" class="size-16  transition hover:scale-125" />
-					</div>
-
-
-				</div>
-	  		</section>
-
-			  <section id ="projects" class="min-h-screen py-20 flex flex-col items-center justify-center max-w-prose">
-				<div class="text-justify py-2 mx-auto">
-					<SectionTitle section_title="Projects" />
-
-					<p>Under Construction :)</p>
-
-					
-				</div>
-	  		</section>
-
+			<Intro />
+			<About />
+			<Education />
+			<Experience />
+			<Skills />
+			<Projects />
 		</Main>
 </Layout>
 

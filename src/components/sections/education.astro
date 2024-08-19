@@ -1,0 +1,27 @@
+---
+import SectionTitle from '$components/SectionTitle.astro'
+
+const educations = await Astro.glob('$content/education/*.md');
+educations.sort((a,b) => {return a.file.localeCompare(b.file)})
+---
+
+<section id ="education" class="min-h-screen flex flex-col items-center justify-center my-20 py-20">
+    <div class="text-justify py-2 mx-auto">
+        <SectionTitle section_title="Education" />
+
+        <div class="flex flex-col">
+            {educations.map((education, index) => (
+              
+                <div class="prose dark:prose-invert">
+                  <h2 class="text-left font-medium">{education.frontmatter.institution}</h2>
+                  <div class="border-b-2">
+                    <p class="font-bold italic">{education.frontmatter.degree}</p>
+                    <p class="italic">{education.frontmatter.time_period} | {education.frontmatter.grade}</p>
+                  </div>
+                  <education.Content />
+                  {index < educations.length - 1 && <hr class="my-10 w-full border-t border-gray-400 dark:border-gray-600" />}
+                </div>
+            ))}
+          </div>
+    </div>
+</section>

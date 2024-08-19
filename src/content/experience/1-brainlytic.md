@@ -3,7 +3,9 @@ company_name : 'Brainlytic Labs'
 company_url : 'https://github.com/BrainlyticLab'
 role : 'Backend Developer (Part Time)'
 time_period : 'Jan 2023 – May 2023'
-tags : ['Nodejs', 'PostgreSQL']
+tags :
+    - 'Nodejs'
+    - 'PostgreSQL'
 ---
 
 Worked as a part-time developer on the backend of *brainlytic.org*, an online learning platform focused on math and logic for junior and high school students. 

@@ -1,5 +1,6 @@
 ---
 name : 'Abir Muhtasim'
+image : '/src/images/abir.jpg'
 github : 'https://github.com/Abir66'
 mail : 'auntor505@gmail.com'
 linkedin : 'https://www.linkedin.com/in/abir-muhtasim/'

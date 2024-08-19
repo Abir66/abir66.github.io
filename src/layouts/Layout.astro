@@ -5,6 +5,11 @@ import "$lib/styles/app.css";
 import { ModeWatcher } from "mode-watcher";
 // import { ViewTransitions } from 'astro:transitions';
 import Cursor  from '$lib/components/Cursor.astro'
+import BackToTop from "$lib/components/BackToTop.svelte";
+
+// import '@fontsource/poppins';
+// Supports weights 100-900
+import '@fontsource-variable/inter';
 
 export interface Props {
     title?: string
@@ -60,6 +65,7 @@ const {
     <body class="px-2 min-h-screen grid grid-rows-[auto,1fr,auto]">
       <div class="fixed min-h-screen dark:invert inset-0 -z-10 h-full w-full bg-white dark:opacity-20 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#e0e0e0_1px,transparent_1px),linear-gradient(to_bottom,#e0e0e0_1px,transparent_1px)] bg-[size:2.5rem_2.5rem]"></div>
         <Cursor/>
+        <BackToTop client:load/>
         <ModeWatcher client:load />
         <Header />
         <slot />

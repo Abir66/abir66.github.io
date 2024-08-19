@@ -1,0 +1,22 @@
+---
+import { Icon } from 'astro-icon/components'
+import SectionTitle from '$components/SectionTitle.astro'
+import skills from '$content/skills/skills.json'
+---
+<section id ="skills" class="min-h-screen flex flex-col items-center justify-center my-20 py-20">
+    <div class="text-center py-2 mx-auto">
+        <SectionTitle section_title="I am skilled in" />
+
+        {skills.map(skill_section => (
+            <div>
+                <p class="py-4">{skill_section.section}</p>
+                <div class="flex gap-4 mb-8 justify-center">
+                    {skill_section.skill_icons.map(skill => (
+                        <Icon name={skill} class="size-16  transition  hover:scale-125" />
+                    ))}
+                    
+                </div>
+            </div>
+        ))}
+    </div>
+</section>

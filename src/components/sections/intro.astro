@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components'
+import myImage from '$images/abir.jpg';
+// import Title from '$components/NameTitle.astro';
+import * as  MyIntro from '$content/intro/intro.md';
+import IntroImage from '$components/IntroImage.astro';
+
+const name = MyIntro.frontmatter.name;
+
+---
+<section class="min-h-[calc(100vh-80px)] flex items-center justify-center py-10">
+    <div class="flex flex-col xl:flex-row-reverse gap-10">
+        <div class="relative w-48  xl:w-64 aspect-square my-auto">
+            <div class="absolute left-4 top-4 w-full aspect-square border-2 border-primary"></div>
+            <IntroImage src={MyIntro.frontmatter.image} alt={name} />
+        </div>
+        <div class="prose lg:prose-xl dark:prose-invert">
+            <p>Hi 👋, my name is</p>
+            <!-- <Title name = {name.toUpperCase()} /> -->
+            <h1 class="text-5xl lg:6xl font-bold mb-0">{name.toUpperCase()}</h1>
+            <MyIntro.Content />
+            <div class="flex gap-4 lg:gap-8 pt-5">
+                <a target="_blank" aria-label="Github" href={MyIntro.frontmatter.github}><Icon name="lucide:github" class="size-8  transition opacity-80 hover:opacity-100 hover:scale-110" /></a>
+                <a target="_blank" aria-label="Email" href={"mailto: " + MyIntro.frontmatter.mail}><Icon name="lucide:mail" class="size-8 transition opacity-80 hover:opacity-100 hover:scale-110" /></a>
+                <a target="_blank" aria-label="LinkedIn" href={MyIntro.frontmatter.linkedin}><Icon name="lucide:linkedin" class="size-8  transition opacity-80 hover:opacity-100 hover:scale-110" /></a>
+                <a target="_blank" aria-label="Twitter / X" href={MyIntro.frontmatter.twitter}><Icon name="devicon:twitter" class="size-7 dark:invert  transition opacity-80 hover:opacity-100 hover:scale-110" /></a>
+            </div>
+        </div>
+    </div>
+</section>

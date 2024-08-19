@@ -1,0 +1,38 @@
+---
+
+import SectionTitle from '$components/SectionTitle.astro'
+const experiences = await Astro.glob('$content/experience/*.md');
+experiences.sort((a,b) => {return a.file.localeCompare(b.file)})
+---
+
+<section id ="experience" class="min-h-screen flex flex-col items-center justify-center my-20 py-20">
+    <div class="text-justify py-2 mx-auto">
+        <SectionTitle section_title="Experience" />
+
+        <div class="flex flex-col">
+            {experiences.map((experience, index) => (
+            
+                <div class="prose dark:prose-invert">
+                <h2>
+                    <a target="_blank" class="underline underline-offset-4" href={experience.frontmatter.company_url}>
+                    {experience.frontmatter.company_name}
+                    </a>
+                </h2>
+                <div class="flex flex-col sm:flex-row sm:gap-8  justify-between">
+                    <p>{experience.frontmatter.role}</p>
+                    <p class="mt-0">{experience.frontmatter.time_period}</p>
+                </div>
+                <experience.Content />
+                <div class="flex gap-4">
+                    {experience.frontmatter.tags.map(tag => (
+                    <div class="text-sm rounded-full bg-muted py-1 px-4">
+                        <span class="text-xs sm:text-sm">{tag}</span>
+                    </div>
+                    ))}
+                </div>
+                {index < experiences.length - 1 && <hr class="my-20 w-full border-t border-gray-400 dark:border-gray-600" />}
+                </div> 
+            ))}
+        </div>
+    </div>
+  </section>

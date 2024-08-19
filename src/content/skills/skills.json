@@ -1,0 +1,30 @@
+[
+    {
+        "section": "Language",
+        "skill_icons" : [
+            "devicon-plain:cplusplus", 
+            "devicon-plain:python",
+            "devicon-plain:java",
+            "devicon-plain:javascript"
+        ]
+    },
+
+    {
+        "section": "Development",
+        "skill_icons" : [
+            "devicon-plain:nodejs-wordmark",
+            "devicon-plain:svelte",
+            "devicon-plain:postgresql",
+            "devicon-plain:godot"
+        ]
+    },
+
+    {
+        "section": "Tools",
+        "skill_icons" : [
+            "devicon-plain:bash",
+            "devicon-plain:git",
+            "devicon-plain:docker"
+        ]
+    }
+]

@@ -1,0 +1,67 @@
+---
+import { Icon } from 'astro-icon/components'
+import SectionTitle from '$components/SectionTitle.astro'
+import ProjectImage from '$lib/components/ProjectImage.astro';
+
+const projects = await Astro.glob('$content/projects/*.md');
+projects.sort((a,b) => {return a.file.localeCompare(b.file)})
+---
+<!-- <section id ="skills" class="min-h-screen flex flex-col items-center justify-center"></section> -->
+<section id ="projects" class="min-h-screen flex flex-col items-center justify-center my-20 py-20">
+    <div class="text-justify py-2 mx-auto">
+        <SectionTitle section_title="Some things I've built" />
+
+        <div class="flex flex-col gap-10">
+            {projects.map((project, index) => (
+              <div class="prose dark:prose-invert">
+                <div class="p-6 bg-transparent rounded-xl transition duration-300 ease-in-out hover:bg-white hover:shadow-lg hover:dark:bg-white/10 hover:backdrop-blur-md">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class={`col-span-2 md:col-span-1 ${index % 2 !== 0 ? 'md:order-last' : ''}`}>
+
+                      <ProjectImage
+                        src={project.frontmatter.image}
+                        alt={project.frontmatter.project_title}
+                      />
+                    </div>
+                    <div class="col-span-2 md:col-span-1">
+                      
+                        <p class="my-0">Featured Project</p>
+                        <h2 class="mt-0">{project.frontmatter.project_title}</h2>
+                        <project.Content />
+                        <div class="flex gap-2 flex-wrap">
+                          {project.frontmatter.tags.map((tech) => (
+                            <div class="text-sm rounded-full bg-muted py-1 px-2">
+                              <span class="text-xs">{tech}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div class="flex mt-6 gap-4 flex-wrap">
+                          {project.frontmatter.links?.map((link) => (
+                            <a target="_blank" href={link.url}>
+                              {link.label.toLowerCase() === 'github' ? (
+                                <Icon
+                                  name="lucide:github"
+                                  class="size-6 transition opacity-80 hover:opacity-100 hover:scale-110"
+                                />
+                              ) : link.label.toLowerCase() === 'youtube' ? (
+                                <Icon
+                                  name="lucide:youtube"
+                                  class="size-6 transition opacity-80 hover:opacity-100 hover:scale-110"
+                                />
+                              ) : (
+                                <Icon
+                                  name="lucide:external-link"
+                                  class="size-6 transition opacity-80 hover:opacity-100 hover:scale-110"
+                                />
+                              )}
+                            </a>
+                          ))}
+                        </div>
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+  </section>
